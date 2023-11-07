@@ -1,0 +1,275 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/rt/!svn/ver/6555/fredrik/work/matlab/sigsys/dsp
+END
+sig2welch.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/sig2welch.m
+END
+batchfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/rt/!svn/ver/6161/fredrik/work/matlab/sigsys/dsp/batchfilter.m
+END
+sig2ar.m
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rt/!svn/ver/6355/fredrik/work/matlab/sigsys/dsp/sig2ar.m
+END
+covfun_estimate.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/rt/!svn/ver/6109/fredrik/work/matlab/sigsys/dsp/covfun_estimate.m
+END
+sig2periodogram.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/rt/!svn/ver/6232/fredrik/work/matlab/sigsys/dsp/sig2periodogram.m
+END
+fbfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6138/fredrik/work/matlab/sigsys/dsp/fbfilter.m
+END
+islss.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/islss.m
+END
+lss2predictor.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/rt/!svn/ver/6217/fredrik/work/matlab/sigsys/dsp/lss2predictor.m
+END
+sig2crosscovfun.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/sig2crosscovfun.m
+END
+sig2arfb.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6249/fredrik/work/matlab/sigsys/dsp/sig2arfb.m
+END
+kf.m
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/rt/!svn/ver/6366/fredrik/work/matlab/sigsys/dsp/kf.m
+END
+dtft.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/rt/!svn/ver/6385/fredrik/work/matlab/sigsys/dsp/dtft.m
+END
+tdft.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/rt/!svn/ver/6555/fredrik/work/matlab/sigsys/dsp/tdft.m
+END
+freqfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6138/fredrik/work/matlab/sigsys/dsp/freqfilter.m
+END
+lss2covfun.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/lss2covfun.m
+END
+ncfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6249/fredrik/work/matlab/sigsys/dsp/ncfilter.m
+END
+sig2etfe.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6109/fredrik/work/matlab/sigsys/dsp/sig2etfe.m
+END
+arorderaic.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6224/fredrik/work/matlab/sigsys/dsp/arorderaic.m
+END
+lsspredict.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/lsspredict.m
+END
+dft.m
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/dft.m
+END
+batchdft.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6232/fredrik/work/matlab/sigsys/dsp/batchdft.m
+END
+sig2blackmantukey.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/sig2blackmantukey.m
+END
+addft.m
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/addft.m
+END
+lss2arma.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/lss2arma.m
+END
+arma2lss.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/arma2lss.m
+END
+sig2covfun.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/sig2covfun.m
+END
+upsample.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/upsample.m
+END
+idft.m
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/idft.m
+END
+sig2arpp.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6224/fredrik/work/matlab/sigsys/dsp/sig2arpp.m
+END
+arordercv.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rt/!svn/ver/6224/fredrik/work/matlab/sigsys/dsp/arordercv.m
+END
+acfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6138/fredrik/work/matlab/sigsys/dsp/acfilter.m
+END
+fastdft.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/fastdft.m
+END
+arorder.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rt/!svn/ver/6224/fredrik/work/matlab/sigsys/dsp/arorder.m
+END
+zpfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6355/fredrik/work/matlab/sigsys/dsp/zpfilter.m
+END
+idealfreqfilter.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/rt/!svn/ver/6138/fredrik/work/matlab/sigsys/dsp/idealfreqfilter.m
+END
+sig2arma.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6376/fredrik/work/matlab/sigsys/dsp/sig2arma.m
+END
+covfun2ar.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rt/!svn/ver/6355/fredrik/work/matlab/sigsys/dsp/covfun2ar.m
+END
+circconv.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/circconv.m
+END
+sig2linmod.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6224/fredrik/work/matlab/sigsys/dsp/sig2linmod.m
+END
+resample.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/resample.m
+END
+downsample.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/downsample.m
+END
+lss2pulseresponse.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/lss2pulseresponse.m
+END
+arma2spec.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/arma2spec.m
+END
+spec2arma.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rt/!svn/ver/6172/fredrik/work/matlab/sigsys/dsp/spec2arma.m
+END
+fastconv.m
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rt/!svn/ver/6145/fredrik/work/matlab/sigsys/dsp/fastconv.m
+END
