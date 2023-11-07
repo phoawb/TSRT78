@@ -22,7 +22,6 @@ title('Magnitude of the DFT of y(t)');
 xlabel('Frequency (Hz)');
 ylabel('|Y(f)|');
 
-<<<<<<< HEAD
 new_N = 2^7;
 
 % Zero-padding to improve frequency resolution
@@ -30,13 +29,6 @@ Y_zeropad = fft(y, new_N);  % Zero-pad to the next power of 2 greater than N
 
 % Compute the new frequency axis for zero-padding
 f_zeropad = (0:new_N-1)*(1/(Ts*new_N));
-=======
-% Zero-padding to improve frequency resolution
-Y_zeropad = fft(y, 1024);  % Zero-pad to the next power of 2 greater than N
-
-% Compute the new frequency axis for zero-padding
-f_zeropad = (0:1023)*(1/(Ts*1024));
->>>>>>> 0db6a0d5d8fb31723707f6a3ef1aa4dacdfec833
 
 % Plot the magnitude of the zero-padded DFT
 figure;
