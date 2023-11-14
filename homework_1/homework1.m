@@ -1,47 +1,60 @@
 % Define parameters
-N = 30;                     % Number of samples
-Ts = 1;                     % Sampling interval in seconds
-t = (0:N-1)*Ts;             % Time vector
-var_e = 0.01;               % Variance of Gaussian noise
+N = 30; % Number of samples
+Ts = 1; % Sampling interval in seconds
+t = (0:N - 1) * Ts; % Time vector
+var_e = 0.01; % Variance of Gaussian noise
 
 % Generate signals
-s = sin(t) + sin(1.2*t);    % Signal s(t)
-e = sqrt(var_e)*randn(1,N); % Gaussian noise e(t)
-y = s + e;                  % Observed signal y(t)
-
-
-[Y_dtft, omega] = dtft(y, T, N);
+s = sin(t) + sin(1.2 * t); % Signal s(t)
+e = sqrt(var_e) * randn(1, N); % Gaussian noise e(t)
+y = s + e; % Observed signal y(t)
 
 figure;
-plot(omega, abs(Y_dtft));
-title("Magnitude of the DTFT of y(t)")
-ylabel("|DTFT{y(t)}|")
-xlabel("omega (rad/sec)")
+hold on
+tt = 0:0.1:N - 1;
+plot(tt, sin(tt) + sin(1.2 * tt), 'b')
+stem(t, y, 'r')
+title('Signal y(t) and sampled points')
+xlabel('time')
+ylabel('y(t)')
+legend('signal', 'N=30 samples')
+print('./homework_1_signal', '-dpng')
 
 % Perform the discrete Fourier transform (DFT)
-Y = fft(y);
+Y = fft(y, N);
 
 % Compute the frequency axis
-f = (0:N-1)*(1/(Ts*N));
+f = (0:N - 1) * (1 / (Ts * N));
 
 % Plot the magnitude of the DFT
 figure;
 stem(f, abs(Y));
-title('Magnitude of the DFT of y(t)');
+title('DFT of y(t)');
 xlabel('Frequency (Hz)');
 ylabel('|Y(f)|');
+print('./homework_1_DFT', '-dpng')
 
-N_zeropad = 2^10;
+N_zeropad = 2 ^ 10;
 
 % Zero-padding to improve frequency resolution
-Y_zeropad = fft(y, N_zeropad);  % Zero-pad to the next power of 2 greater than N
+Y_zeropad = fft(y, new_N);
 
 % Compute the new frequency axis for zero-padding
-f_zeropad = (0:N_zeropad-1)*(1/(Ts*N_zeropad));
+f_zeropad = (0:N_zeropad - 1) * (1 / (Ts * N_zeropad));
 
-% Plot the magnitude of the zero-padded DFT
 figure;
-plot(f_zeropad, abs(Y_zeropad));
-title('Zero-padded DFT of y(t) (N = 1024)');
+plot(f_zeropad, abs(Y_zeropad), 'b');
+title('Zero-padded DFT of y(t)');
 xlabel('Frequency (Hz)');
 ylabel('|Y(f)|');
+print('./homework_1_DFT_zero', '-dpng')
+
+% DTFT
+[Y_DTFT, w] = dtft(y);
+
+figure;
+plot(w, abs(Y_DTFT), 'b')
+xlabel('Angular frequency')
+ylabel('|DTFT(y)|')
+title('Discrete Time Fourier Transform of y(t)')
+print('./homework_1_DTFT', '-dpng')
