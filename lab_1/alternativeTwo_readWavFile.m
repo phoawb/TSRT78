@@ -9,7 +9,7 @@
 % We assume that the wave file has been recorded with a sampling frequency
 % of 8000Hz!
 
-[y, fSamp] = audioread('recording.wav'); % extract data and sampling frequency
+[y, fSamp] = audioread('whistle.wav'); % extract data and sampling frequency
 
 fSamp % check if 8000Hz
 size(y) % if your recording is in stereo, you can remove one of the channels
