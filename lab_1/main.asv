@@ -1,0 +1,20 @@
+%% Get signal from file and plot data
+[y, fSamp] = audioread('data/whistle.wav');
+    
+nSamp = size(y, 1);
+t = (0:nSamp - 1) / fSamp;
+
+figure;
+plot(t, y)
+xlabel('time in seconds')
+ylabel('recorded signal')
+
+%% Get the energy from the signal
+
+E_tot_t = getEnergy(y, 'time');
+disp(['The energy of the signal in the time domain is: ', num2str(E_tot_t)]);
+E_tot_f = getEnergy(y, 'frequency');
+disp(['The energy of the signal in the freq domain is: ', num2str(E_tot_f)]);
+
+%% 
+dom_freq = getDominantFreq(y, fSamp)
