@@ -1,39 +1,60 @@
-[aaa, fSamp] = audioread('Sound/A2.wav'); 
-%sound(aaa,fSamp); 
-nSamp = size(aaa,1);
-t = (0:nSamp-1)/fSamp; 
+close all; clc; clear;
+[vowel_a_raw, fs] = audioread('Sound/A2.wav'); 
 
-figure(1);clf();
-plot(t, aaa)
-xlabel('time in seconds')
-ylabel('recorded signal') % axis description is important!
+% ---------- PRE-PROCESSING -------------------------
+vowel_a_raw = detrend(vowel_a_raw);
+vowel_a = vowel_a_raw(floor(8000*3.27)+1:floor(8000*5.27)); % cut out best 2 seconds
 
-aa = aaa(floor(8000*3.27)+1:floor(8000*5.27));
+N = size(vowel_a,1); % number of samples
+t = (0:N-1)/fs; % time vector in seconds
 
-nSamp = size(aa,1); % number of samples
-t = (0:nSamp-1)/fSamp; % time vector in seconds
-
-figure(2);clf();
-plot(t, aa)
-xlabel('time in seconds')
-ylabel('recorded signal') % axis description is important!
-
-figure(3);clf();
-plot(t, aa)
+figure;clf;
+plot(t, vowel_a)
 axis([])
 xlabel('time in seconds')
 ylabel('recorded signal') % axis description is important!
 
-%% Count number of peaks
-AA = fft(aa);
+% ---------- EST MODEL ORDER FROM GRAPH -------------
+% 6*2 peaks = order 12 appropriate for AR
+VOWEL_A = fft(vowel_a,N);
+ff = (0:(N-1))*(fs/N);
+figure; clf;
+plot(ff,abs(VOWEL_A));      
 
-%% Cross validation
+% ---------- PARTITION DATA -------------------------
+% 2/3 for estimation 1/3 for validation
+vowel_a_est = vowel_a(1:2*floor(N/3));      % Estimated data
+vowel_a_val = vowel_a(2*floor(N/3)+1:N);    % Validation data
 
-T= 1/8000;
-N=length(aa);
+% ---------- PRE-defined LOSS function plot ---------
+nmax = 20;
+[n, W] = arordercv(vowel_a_est, vowel_a_val, nmax);
 
-edata = iddata(aa(1:2*floor(N/3)),[],T); % Estimated data
-vdata = iddata(aa(2*floor(N/3)+1:N),[],T); % Validation data
+% ---------- HOME-MADE SOLUTION ---------------------
+lams = [];
+Wv_cv = zeros(1, nmax);
 
-for n=1:20
-end
+[W, Uaic, Ubic] = arorder(vowel_a, nmax);
+
+figure;
+plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
+title('Loss functions as a function of AR(n)')
+legend('Loss function', 'AIC', 'BIC')
+xlabel('n')
+xticks(1:nmax)
+
+% ---------- SPECTRUM COMPARISON of chosen order --
+data_est = iddata(vowel_a_est, [], 1/fs);
+data_val = iddata(vowel_a_val, [], 1/fs);
+vowel_a_spect = etfe(data_val, 200);
+order_n = 20;
+
+figure;clf;
+bode(ar(data_est,order_n), 'b', vowel_a_spect, 'r');
+
+% ---------- COMPARE and PREDICT ------------------
+AR = ar(data_est,order_n);
+predict(ar(data_est, order_n), data_est);
+figure;
+compare(data_val, AR);
+
