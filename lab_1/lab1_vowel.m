@@ -29,6 +29,8 @@ vowel_a_val = vowel_a(2*floor(N/3)+1:N);    % Validation data
 % ---------- PRE-defined LOSS function plot ---------
 nmax = 20;
 [n, W_cv] = arordercv(vowel_a_est, vowel_a_val, nmax);
+disp("BEST ORDER = ")
+disp(n)
 
 % ---------- HOME-MADE SOLUTION ---------------------
 lams = [];
@@ -60,7 +62,20 @@ bode(ar(data_est,order_n), 'b', vowel_a_spect, 'r');
 
 % ---------- COMPARE and PREDICT ------------------
 AR = ar(data_est,order_n);
-predict(ar(data_est, order_n), data_est);
+predict(AR, vowel_a_val);
 figure;
 compare(data_val, AR);
+
+
+% Assuming AR = ar(y_est, 9) is your model
+YP = predict(AR, vowel_a_val);
+
+% Plot the results
+t_val = (1:length(vowel_a_val)); % Time or sample indices for validation data
+plot(t_val, vowel_a_val, 'b', t_val, YP, 'r--');
+legend('Actual Validation Data', 'Predicted Data');
+xlabel('Time or Samples');
+ylabel('Signal Amplitude');
+title('Comparison of Validation Data and AR Model Predictions');
+
 
