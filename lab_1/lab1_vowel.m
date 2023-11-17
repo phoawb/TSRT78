@@ -28,13 +28,19 @@ vowel_a_val = vowel_a(2*floor(N/3)+1:N);    % Validation data
 
 % ---------- PRE-defined LOSS function plot ---------
 nmax = 20;
-[n, W] = arordercv(vowel_a_est, vowel_a_val, nmax);
+[n, W_cv] = arordercv(vowel_a_est, vowel_a_val, nmax);
 
 % ---------- HOME-MADE SOLUTION ---------------------
 lams = [];
 Wv_cv = zeros(1, nmax);
 
 [W, Uaic, Ubic] = arorder(vowel_a, nmax);
+
+
+figure;
+plot(3:nmax, W_cv(3:end), "-o");
+title("Cross validation loss function")
+xticks(3:nmax)
 
 figure;
 plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
