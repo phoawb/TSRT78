@@ -36,8 +36,8 @@ ratio = Y_max / Y_BP_max;
 Y_BP = Y_BP * ratio;
 
 % Energy in the time domain
-E_tot_t = sum(abs(y).^2);
-E_dom_t = sum(abs(ifft(Y_BP)).^2);
+E_tot_t = sum(abs(y).^2)
+E_dom_t = sum(abs(ifft(Y_BP)).^2)
 purity_t = (1 - E_dom_t/E_tot_t);           % Harmonic distortion
 
 % Energy in the frequency domain
@@ -53,8 +53,8 @@ band_pass(idy_highmax-b:idy_highmax+b) = 1;
 
 Y_BP= band_pass'.*Y;
 
-E_tot_f = 1/N*sum(abs(Y).^2);
-E_dom_f = 1/N*sum(abs(Y_BP).^2);
+E_tot_f = 1/N*sum(abs(Y).^2)
+E_dom_f = 1/N*sum(abs(Y_BP).^2)
 purity_f = (1 - E_dom_f/E_tot_f);           % Harmonic distortion
 
 %% AR (parametric)

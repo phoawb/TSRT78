@@ -69,11 +69,11 @@ xlabel('Model order');
 % AR models for vowel 'a' of orders 2, 9 and 18
 estIdx_x = floor(2*Nx/3);
 modelOrder_x = 2;
-arMod_x_2 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
+arMod_a_2 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
 modelOrder_x = 9;
-arMod_x_9 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
+arMod_a_9 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
 modelOrder_x = 18;
-arMod_x_18 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
+arMod_a_18 = ar(x(1:estIdx_x), modelOrder_x, 'Ts', Ts);
 
 % AR models for vowel 'o' of orders 3, 5 and 10
 estIdx_y = floor(2*Ny/3);
@@ -88,9 +88,9 @@ arMod_y_10 = ar(y(1:estIdx_y), modelOrder_y, 'Ts', Ts);
 
 % Validation method 1: compare power spectra
 f = 0:0.05:1;
-Phi1 = arMod_x_18.NoiseVariance*Ts*abs(freqz(1, arMod_x_18.a, pi*f)).^2;
-Phi2 = arMod_x_9.NoiseVariance*Ts*abs(freqz(1, arMod_x_9.a, pi*f)).^2;
-Phi3 = arMod_x_2.NoiseVariance*Ts*abs(freqz(1, arMod_x_2.a, pi*f)).^2;
+Phi1 = arMod_a_18.NoiseVariance*Ts*abs(freqz(1, arMod_a_18.a, pi*f)).^2;
+Phi2 = arMod_a_9.NoiseVariance*Ts*abs(freqz(1, arMod_a_9.a, pi*f)).^2;
+Phi3 = arMod_a_2.NoiseVariance*Ts*abs(freqz(1, arMod_a_2.a, pi*f)).^2;
 [Phi4, f4] = sig2blackmantukey(x(estIdx_x+1:end), 30, Ts);
 figure;
 subplot(2,1,1);
@@ -112,11 +112,11 @@ xlabel('Frequency (Hz)'); title('Spectrum Estimates for o');
 
 
 % Validation method 2: residual whiteness test
-eps_x_18 = pe(arMod_x_18, x(estIdx_x+1:end)); 
+eps_x_18 = pe(arMod_a_18, x(estIdx_x+1:end)); 
 [Rex_18, k] = sig2crosscovfun(eps_x_18, x(estIdx_x+1:end));
-eps_x_9 = pe(arMod_x_9, x(estIdx_x+1:end)); 
+eps_x_9 = pe(arMod_a_9, x(estIdx_x+1:end)); 
 Rex_9 = sig2crosscovfun(eps_x_9, x(estIdx_x+1:end));
-eps_x_2 = pe(arMod_x_2, x(estIdx_x+1:end)); 
+eps_x_2 = pe(arMod_a_2, x(estIdx_x+1:end)); 
 Rex_2 = sig2crosscovfun(eps_x_2, x(estIdx_x+1:end));
 
 eps_y_10 = pe(arMod_y_10, y(estIdx_y+1:end)); 
@@ -140,8 +140,7 @@ xlabel('k'); ylabel('Reo(k)');
 
 % ------------------ Simulation of model ------------------
 b = 1;
-ax = arMod_x_9.A; % coefficients of the AR-model
-ay = arMod_y_5.A;
+ax = arMod_a_9.A; % coefficients of the AR-model
 
 pulseTrain = ones(1, Nx);
 
@@ -152,17 +151,9 @@ D = D + 19; % Look at max from t>19, so add 19 to time lag
 ehat = (mod(1:Nx, D) == 0);
 sim_x = filter(1,ax,ehat);
 
-e = filter(ay, 1, y);
-r = covf(e, 100);
-[A, D] = max(r(20:end));
-D = D + 19; % Look at max from t>19, so add 19 to time lag
-ehat = (mod(1:Ny, D) == 0);
-sim_y = filter(1,ay,ehat);
-
 sim_X = fft(sim_x);
-sim_Y = fft(sim_y);
 
-sound([sim_x, sim_y]);
+sound([sim_x]);
 
 
 

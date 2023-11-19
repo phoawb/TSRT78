@@ -180,26 +180,16 @@ print(6,'bodeval_i.eps','-depsc','-loose');
 
 %% Make pulstrain for II
 mo20 = ar(ii,28);
-
-
-
 e_vec = filter(mo7.a,1,ii); 
 r = covf(e_vec,100);
 [A,D] = max(r(20:end));
 D = D+20
 ehat = zeros(1, 2*8000);
 ehat(1:D:end)=sqrt(A);
-
-
 pulsetrain_ii = ehat;
-
-
 %%
-
 ii_out = filter(1,mo20.a,pulsetrain_ii);
-
 sound(50*ii_out,8000);
-
 figure(1)
 plot(1:length(ii),ii);%axis([5500 6000 -0.04 0.03])
 hold on;
