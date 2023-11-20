@@ -23,11 +23,14 @@ xlabel('time in seconds')
 ylabel('recorded signal') % axis description is important!
 
 % ---------- EST MODEL ORDER FROM GRAPH -------------
-% 6*2 peaks = order 12 appropriate for AR
+% 9*2 peaks = order 18 appropriate for AR
 VOWEL_A = fft(vowel_a,N);
 ff = (0:(N-1))*(fs/N);
 figure; clf;
-plot(ff,abs(VOWEL_A));      
+plot(ff,abs(VOWEL_A));
+title("Fourier transform of the a sound")
+xlabel("frequency (Hz)")
+ylabel("amplitude of Fourier transform")
 
 % ---------- PARTITION DATA -------------------------
 % 2/3 for estimation 1/3 for validation
@@ -46,6 +49,8 @@ disp(n)
 figure;
 plot(3:nmax, W_cv(3:end), "-o");
 title("Cross validation loss function")
+xlabel("AR model order")
+ylabel("loss")
 xticks(3:nmax)
 
 figure;
@@ -53,14 +58,16 @@ subplot(2,1,1);
 plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
 title('Loss functions as a function of AR(n)')
 legend('Loss function', 'AIC', 'BIC')
-xlabel('n')
+xlabel('AR model order')
+ylabel("loss")
 xticks(1:nmax)
 subplot(2,1,2);
 plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
-xlim([3 16])
+xlim([3 20])
 title('Loss functions as a function of AR(n)')
 legend('Loss function', 'AIC', 'BIC')
-xlabel('n')
+xlabel('AR model order')
+ylabel("loss")
 xticks(1:nmax)
 
 
