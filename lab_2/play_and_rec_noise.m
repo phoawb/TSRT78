@@ -72,7 +72,7 @@ noise=sqrt((1/3)/mean(noise.^2)).*noise;
 
 
 % open serial port
-com = serial(upper(port),'BaudRate', 115200,'InputBufferSize',100000,'ByteOrder','bigEndian');
+com = serial(port,'BaudRate', 115200,'InputBufferSize',100000,'ByteOrder','bigEndian');
 fopen(com);
 pause(1)
 

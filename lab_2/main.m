@@ -1,3 +1,4 @@
+close all
 % Generate a 10^4 long white noise sample sequence
 N = 10^4;
 u = randn(1,N);
@@ -16,7 +17,7 @@ y = filter(h,1,u);
 
 % Apply the LMS algorithm
 nb = length(h);        % Model order
-nk = 0;                % Adjust as needed
+nk = 2;                % Adjust as needed
 mu = 0.015;            % step-length
 lambda = 0.005;        % leakage factor
 
@@ -61,3 +62,37 @@ xlabel('Parameter');
 ylabel('Value');
 title('Parameters at the Last Iteration and Parameters that Generate the Noise Sequences');
 grid on; % Add a grid for better readability
+
+%{
+QUESTION 1:
+* Geometry & distance: 
+    Yes, by measuring the distance and speed of sound.
+    Drawback is that we don't consider the inherent delay of
+    the electronics.
+* Visual examinatinon of the signals by using Matlab plot
+    YES, the delay is visible because
+    both samples just start from 0.
+* Computing with xcorr(y,u,M)
+    Yes it is possible, however expensive
+* Estimating channel parameter
+    It is possible, by inspecting where the coeffiecients
+    begin. Assuming nk is zero. Otherwise subtract nk.
+
+QUESTION 2:
+* I the step length is too large, it will never converge.
+    Takes longer time, more expensive for smaller step len.
+    More precise, though.
+`
+QUESTION 3:
+* The resulting error, |yhat - y|
+
+QUESTION 4:
+* see file
+
+%}
+
+%%
+playsound("sine")
+
+%%
+play_and_rec_noise("/dev/cu.usbmodem11101", 'white')
