@@ -1,3 +1,4 @@
+close all; clc; clear;
 %% Get signal from file and plot data
 fs = 8000;
 fn = 4000;
@@ -11,6 +12,7 @@ figure(1);clf;
 plot(t, y);
 xlabel('time in seconds')
 ylabel('recorded signal')
+print('./figures/whistle_cut.eps', '-depsc', '-loose')
 
 %% Fourier transform of the signal
 N = 16000;
@@ -20,9 +22,24 @@ ff = (0:N-1)*(fSamp/N);                     % frequency vector
 
 figure;
 plot(ff, abs(Y));
+xlabel('frequency in Hz')
+ylabel('amplitude of Fourier transform')
+print('./figures/whistle_fft.eps', '-depsc', '-loose')
+
+figure;
+plot(ff, abs(Y));
+xlabel('frequency in Hz')
+xlim([1060 1120]);
+ylabel('amplitude of Fourier transform')
+print('./figures/whistle_fft.eps', '-depsc', '-loose')
+
+dom_f = 1090;
+allowance = 0.001;
+
+lower_f = dom_
 
 % Filter around the dominant frequency
-[BBand, ABand] = butter(7, [1100*2/fSamp 1200*2/fSamp], "bandpass");
+[BBand, ABand] = butter(7, [1000*2/fSamp 1200*2/fSamp], "bandpass");
 
 y_BP = filtfilt(BBand, ABand, y);           % apply BP filter to signal
 Y_BP = fft(y_BP,N);                         % FFT of the filtered signal
@@ -36,8 +53,8 @@ ratio = Y_max / Y_BP_max;
 Y_BP = Y_BP * ratio;
 
 % Energy in the time domain
-E_tot_t = sum(abs(y).^2);
-E_dom_t = sum(abs(ifft(Y_BP)).^2);
+E_tot_t = sum(abs(y).^2)
+E_dom_t = sum(abs(ifft(Y_BP)).^2)
 purity_t = (1 - E_dom_t/E_tot_t);           % Harmonic distortion
 
 % Energy in the frequency domain
@@ -53,14 +70,15 @@ band_pass(idy_highmax-b:idy_highmax+b) = 1;
 
 Y_BP= band_pass'.*Y;
 
-E_tot_f = 1/N*sum(abs(Y).^2);
-E_dom_f = 1/N*sum(abs(Y_BP).^2);
+E_tot_f = 1/N*sum(abs(Y).^2)
+E_dom_f = 1/N*sum(abs(Y_BP).^2)
 purity_f = (1 - E_dom_f/E_tot_f);           % Harmonic distortion
 
 %% AR (parametric)
 
 % AR model of order 2, least squares,
-ar_model = ar(y, 2, 'ls', 'Ts', 1/fs);
+ar_model = ar(y, 2, 'Ts', 1/fs);
+
 A = ar_model.A;
 figure;
 zplane(1,A)
@@ -75,10 +93,6 @@ distance_2 = 1- norm(r(2))
 dis1 = 1-norm(P(1)) 
 dis2 = 1-norm(P(2)) 
 
-%% PSD (non-parametric)
-
-non_param_model = etfe(y); % Periodogram estimation
-non_param_model = etfe(y, 100, [], ''); % 
-figure; bode(ar_model, 'r', non_param_model, 'b');
-legend('AR-model', 'Periodogram');
+figure; bode(ar_model); % see highest frequency response in bode plot
+legend('AR-model');
 

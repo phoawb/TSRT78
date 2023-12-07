@@ -1,3 +1,4 @@
+close all; clc; clear;
 %% Get signal from file and plot data
 fs = 8000;
 fn = 4000;
@@ -11,6 +12,7 @@ figure(1);clf;
 plot(t, y);
 xlabel('time in seconds')
 ylabel('recorded signal')
+print('./figures/whistle_cut.eps', '-depsc', '-loose')
 
 %% Fourier transform of the signal
 N = 16000;
@@ -20,9 +22,27 @@ ff = (0:N-1)*(fSamp/N);                     % frequency vector
 
 figure;
 plot(ff, abs(Y));
+title("Fourier transform of whistle")
+xlabel('frequency in Hz')
+ylabel('amplitude of Fourier transform')
+print('./figures/whistle_fft.eps', '-depsc', '-loose')
+
+figure;
+plot(ff, abs(Y));
+title("Fourier transform of whistle")
+xlabel('frequency in Hz')
+xlim([1060 1120]);
+ylabel('amplitude of Fourier transform')
+print('./figures/whistle_fft_xlim.eps', '-depsc', '-loose')
+
+dom_f = 1090;
+allowance = 0.01;
+
+upper_f = dom_f + allowance*dom_f
+lower_f = dom_f - allowance*dom_f
 
 % Filter around the dominant frequency
-[BBand, ABand] = butter(7, [1100*2/fSamp 1200*2/fSamp], "bandpass");
+[BBand, ABand] = butter(7, [lower_f*2/fSamp upper_f*2/fSamp], "bandpass");
 
 y_BP = filtfilt(BBand, ABand, y);           % apply BP filter to signal
 Y_BP = fft(y_BP,N);                         % FFT of the filtered signal
@@ -38,14 +58,14 @@ Y_BP = Y_BP * ratio;
 % Energy in the time domain
 E_tot_t = sum(abs(y).^2)
 E_dom_t = sum(abs(ifft(Y_BP)).^2)
-purity_t = (1 - E_dom_t/E_tot_t);           % Harmonic distortion
+purity_t = (1 - E_dom_t/E_tot_t)           % Harmonic distortion
 
 % Energy in the frequency domain
-[~, idy_lowmax] = max(abs(Y(1:Ysamp/2)));
-[~, idy_highmax] = max(abs(Y(Ysamp/2+1:Ysamp)));
+[~, idy_lowmax] = max(abs(Y(1:Ysamp/2)))
+[~, idy_highmax] = max(abs(Y(Ysamp/2+1:Ysamp)))
 
 % Number of frequencies around peak to add
-b = 15;
+b = 10;
 
 band_pass = zeros(1, N); 
 band_pass(idy_lowmax-b:idy_lowmax+b) = 1;
@@ -55,26 +75,29 @@ Y_BP= band_pass'.*Y;
 
 E_tot_f = 1/N*sum(abs(Y).^2)
 E_dom_f = 1/N*sum(abs(Y_BP).^2)
-purity_f = (1 - E_dom_f/E_tot_f);           % Harmonic distortion
+purity_f = (1 - E_dom_f/E_tot_f)           % Harmonic distortion
 
 %% AR (parametric)
 
 % AR model of order 2, least squares,
 ar_model = ar(y, 2, 'Ts', 1/fs);
+
 A = ar_model.A;
 figure;
 zplane(1,A)
-present(ar_model)
 
 r = roots(A);
 distance_1 = 1- norm(r(1))
 distance_2 = 1- norm(r(2))
 
 % Alrnative method
-[R,P,K] = residue(1,A); 
+[R,P,K] = residue(1,A)
 dis1 = 1-norm(P(1)) 
 dis2 = 1-norm(P(2)) 
 
-figure; bode(ar_model); % see highest frequency response in bode plot
+figure; 
+bode(ar_model); % see highest frequency response in bode plot
 legend('AR-model');
+print('./figures/whistle_bode.eps', '-depsc', '-loose')
+
 
