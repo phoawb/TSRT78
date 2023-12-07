@@ -11,7 +11,7 @@ title('ooo raw')
 xlabel('time in seconds')
 ylabel('recorded signal') % axis description is important!
 
-vowel_o = vowel_o_raw(floor(8000*1.7)+1:floor(8000*3.7)); % cut out best 2 seconds
+vowel_o = vowel_o_raw(floor(8000*6.5)+1:floor(8000*8.5)); % cut out best 2 seconds
 
 N = size(vowel_o,1); % number of samples
 t = (0:N-1)/fs; % time vector in seconds
@@ -28,6 +28,9 @@ VOWEL_O = fft(vowel_o,N);
 ff = (0:(N-1))*(fs/N);
 figure; clf;
 plot(ff,abs(VOWEL_O));      
+title("Fourier transform of the a sound")
+xlabel("frequency (Hz)")
+ylabel("amplitude of Fourier transform")
 
 % ---------- PARTITION DATA -------------------------
 % 2/3 for estimation 1/3 for validation
@@ -46,6 +49,8 @@ disp(n)
 figure;
 plot(3:nmax, W_cv(3:end), "-o");
 title("Cross validation loss function")
+xlabel("AR model order")
+ylabel("loss")
 xticks(3:nmax)
 
 figure;
@@ -53,14 +58,16 @@ subplot(2,1,1);
 plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
 title('Loss functions as a function of AR(n)')
 legend('Loss function', 'AIC', 'BIC')
-xlabel('n')
+xlabel('AR model order')
+ylabel("loss")
 xticks(1:nmax)
 subplot(2,1,2);
 plot(1:nmax,W,'-o', 1:nmax,Uaic, '-.dr', 1:nmax, Ubic, '--xb')
-xlim([3 16])
+xlim([3 20])
 title('Loss functions as a function of AR(n)')
 legend('Loss function', 'AIC', 'BIC')
-xlabel('n')
+xlabel('AR model order')
+ylabel("loss")
 xticks(1:nmax)
 
 
@@ -69,12 +76,12 @@ data_est = iddata(vowel_o_est, [], 1/fs);
 data_val = iddata(vowel_o_val, [], 1/fs);
 vowel_o_spect = etfe(data_val, 200);
 ar_3 = ar(data_est,3);
-ar_18 = ar(data_est,18);
+ar_16 = ar(data_est,16);
 ar_30 = ar(data_est,30);
 
 figure;clf;
-bode(ar_3, 'g-', ar_18, 'c-', ar_30, 'b-', vowel_o_spect, 'r');
-legend('ar(3)', 'ar(18)', 'ar(30)', 'periodogram')
+bode(ar_3, 'g-', ar_16, 'c-', ar_30, 'b-', vowel_o_spect, 'r');
+legend('ar(3)', 'ar(16)', 'ar(30)', 'periodogram')
 
 %% ---------- COMPARE and PREDICT ------------------
 figure;
@@ -82,14 +89,14 @@ subplot(3,1,1)
 YP = predict(ar_3, data_val);
 compare(data_val, YP);
 subplot(3,1,2)
-YP = predict(ar_18, data_val);
+YP = predict(ar_16, data_val);
 compare(data_val, YP);
 subplot(3,1,3)
 YP = predict(ar_30, data_val);
 compare(data_val, YP);
 
 %% ------------------ Simulation of model ------------------
-mo18 = ar(vowel_o,18); % 18 because we have 9 clear peaks
+mo18 = ar(vowel_o,3); 
 e_vec = filter(mo18.a,1,vowel_o); % E = (a_1 + ...) * Y
 
 f_min = 20;
