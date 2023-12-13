@@ -8,8 +8,8 @@
 #include <avr/interrupt.h>
 
 // Filter settings
-#define NR_OF_FILTER_TAPS 40      // Equivalent to n_b in the lab instructions
-#define DELAY 5                   // Equivalent to n_k in the lab instructions
+#define NR_OF_FILTER_TAPS 43      // Equivalent to n_b in the lab instructions
+#define DELAY 0                   // Equivalent to n_k in the lab instructions
 //#define gamma 32767                   // Equivalent to n_k in the lab instructions
 
 
